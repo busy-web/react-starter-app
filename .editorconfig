@@ -1,0 +1,43 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+
+root = true
+
+
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = tab
+indent_size = 2
+
+[*.js]
+indent_style = tab
+indent_size = 2
+
+[*.{html,hbs}]
+insert_final_newline = true
+indent_style = tab
+indent_size = 2
+
+[*.{css,scss}]
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 2
+
+[*.yml]
+indent_style = space
+indent_size = 2
+
+[package.json]
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+[*.{diff,md}]
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 4
