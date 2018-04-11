@@ -1,0 +1,11 @@
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.application {
+	width: 100%;
+}
+
+/*@import "smartbot/components/button";*/

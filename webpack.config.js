@@ -18,7 +18,7 @@ module.exports = {
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
-		extensions: [".ts", ".tsx", ".js", ".json"],
+		extensions: [".ts", ".tsx", ".d.ts", ".js", ".json", ".css"],
 		alias: { "smartbot": path.resolve(__dirname, "app") }
 	},
 
@@ -35,9 +35,34 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.css$/,
+				use: [
+					{
+						loader: "style-loader",
+						options: {
+							hmr: false
+						}
+					},
+					{
+						loader: "css-loader",
+						options: {
+							alias: { "smartbot": path.resolve(__dirname, "app") }
+						}
+					}
+				]
+			},
+			{
 				test: /\.tsx?$/,
 				use: ['babel-loader', 'ts-loader']
-			}
+			},
+			//{
+			//	test: /\.(png|svg|jpg|gif)$/,
+			//	use: ['file-loader']
+			//},
+			//{
+			//	test: /\.(woff|woff2|eot|ttf|otf)$/,
+			//	use: ['file-loader']
+			//}
 		]
 	},
 

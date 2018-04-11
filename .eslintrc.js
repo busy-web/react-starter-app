@@ -19,7 +19,8 @@ module.exports = {
     {
       files: [
         'webpack.config.js',
-        'config/**/*.js'
+        'config/**/*.js',
+				'./.storybook/**/*.js'
       ],
       parserOptions: {
         sourceType: 'script',

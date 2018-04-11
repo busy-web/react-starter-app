@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-export default class BodyContainer extends React.Component {
+export default class BodyContainer extends React.Component<{ children?: React.ReactNode }> {
 	render() {
 		return (
 			<div className="c-body">
-				<h1>
-					Hello World<br />
-				</h1>
+				{this.props.children}
 			</div>
 		);
 	}
