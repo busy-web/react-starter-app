@@ -1,0 +1,24 @@
+[ignore]
+.*/.storybook/.*
+.*/config/.*
+.*/.git/.*
+#.*/node_modules/.*
+.*/stories/.*
+.*/tests/.*
+.*/package.json
+.*/webpack.config.js
+
+[include]
+app/
+
+[libs]
+flow-typed
+
+[options]
+all=false
+include_warnings=true
+esproposal.decorators=ignore
+server.max_workers=2
+module.name_mapper='^smartbot\/\(.*\)$' -> '<PROJECT_ROOT>/app/\1'
+module.name_mapper='.*\(.css\)' -> 'empty/object'
+module.system.node.resolve_dirname=node_modules

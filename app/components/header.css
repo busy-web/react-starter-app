@@ -1,0 +1,15 @@
+
+
+.c-header {
+	width: 100%;
+	height: 56px;
+	background-color: #2d3e50;
+	text-align: center;
+}
+
+.c-header > .c-header-logo {
+	color: #fefefe;
+	font-size: 32px;
+	line-height: 56px;
+	text-align: center;
+}

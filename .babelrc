@@ -1,5 +1,5 @@
 {
-	"presets": ["env", "react"],
-  "plugins": ["react-hot-loader/babel", "transform-class-properties"]
+	"presets": ["flow", "react"],
+  "plugins": ["react-hot-loader/babel", "transform-class-properties", "transform-flow-strip-types"]
 }
 

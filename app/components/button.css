@@ -1,19 +1,34 @@
 
-.d-button {
+.c-button {
 	display: inline-block;
 	padding: 10px 15px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	background-color: #fff;
+	color: #666;
 }
 
-.d-button.grey,
-.d-button.gray {
-	border-color: #777;
-	background-color: #999;
+.c-button.grey,
+.c-button.gray {
+	border-color: lighter(#9f9f9f, 20%);
+	background-color: #9f9f9f;
+	color: #333;
 }
 
-.d-button.blue {
+.c-button.blue {
 	border-color: lighter(#30aeef, 20%);
 	background-color: #30aeef;
+	color: #efefef;
+}
+
+.c-button.green {
+	border-color: lighter(#4ea856, 20%);
+	background-color: #4ea856;
+	color: #efefef;
+}
+
+.c-button.red {
+	border-color: lighter(#f44336, 20%);
+	background-color: #f44336;
+	color: #efefef;
 }

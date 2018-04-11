@@ -7,6 +7,8 @@ const webpack = require('webpack');
 
 
 module.exports = {
+	target: "web",
+
 	entry: {
 		app: "./app/index"
 	},
@@ -18,7 +20,7 @@ module.exports = {
 
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
-		extensions: [".ts", ".tsx", ".d.ts", ".js", ".json", ".css"],
+		extensions: [".jsx", ".js", ".json", ".css"],
 		alias: { "smartbot": path.resolve(__dirname, "app") }
 	},
 
@@ -27,6 +29,7 @@ module.exports = {
 			title: 'Smart Bot',
 			template: './app/index.html'
 		}),
+
 		new CleanWebpackPlugin(['dist']),
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin()
@@ -52,17 +55,17 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.tsx?$/,
-				use: ['babel-loader', 'ts-loader']
+				test: /\.jsx?$/,
+				use: ['babel-loader']
 			},
-			//{
-			//	test: /\.(png|svg|jpg|gif)$/,
-			//	use: ['file-loader']
-			//},
-			//{
-			//	test: /\.(woff|woff2|eot|ttf|otf)$/,
-			//	use: ['file-loader']
-			//}
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: ['file-loader']
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: ['file-loader']
+			}
 		]
 	},
 

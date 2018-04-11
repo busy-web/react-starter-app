@@ -1,26 +1,33 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    ecmaVersion: 2017,
-    sourceType: 'module'
-  },
+	parser: "babel-eslint",
   plugins: [
-    'react'
+    'react',
+		'flowtype'
   ],
   extends: [
-    'eslint:recommended'
+    'eslint:recommended',
+		'plugin:flowtype/recommended'
   ],
   env: {
     browser: true
-  },
-  rules: {
+	},
+	settings: {
+		ecmascript: 6,
+		jsx: true
+	},
+	rules: {
+		//"strict": 0,
+		//"quotes": 0,
+		//"no-unused-vars": 0,
+		//"no-underscore-dangle": 0
 	},
 	overrides: [
     {
       files: [
         'webpack.config.js',
         'config/**/*.js',
-				'./.storybook/**/*.js'
+				'./.storybook/**/*.js',
       ],
       parserOptions: {
         sourceType: 'script',
