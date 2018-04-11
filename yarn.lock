@@ -298,25 +298,6 @@
     react-split-pane "^0.1.77"
     react-treebeard "^2.1.0"
 
-"@tensorflow/tfjs-core@0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-core/-/tfjs-core-0.6.0.tgz#e33d9889472b0599291ecdb7fa83579586b21e66"
-  dependencies:
-    seedrandom "~2.4.3"
-
-"@tensorflow/tfjs-layers@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs-layers/-/tfjs-layers-0.2.0.tgz#87114fe7e680b5cb87ca05f0119a21d2578f6b7f"
-  dependencies:
-    underscore "~1.8.3"
-
-"@tensorflow/tfjs@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@tensorflow/tfjs/-/tfjs-0.7.0.tgz#84f1bd057cb7804638dc04f76f5462ca15eb4e36"
-  dependencies:
-    "@tensorflow/tfjs-core" "0.6.0"
-    "@tensorflow/tfjs-layers" "0.2.0"
-
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -8021,10 +8002,6 @@ scss-tokenizer@^0.2.3:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
 
-seedrandom@~2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-2.4.3.tgz#2438504dad33917314bff18ac4d794f16d6aaecc"
-
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -8905,10 +8882,6 @@ uid-number@^0.0.6:
 underscore@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
-
-underscore@~1.8.3:
-  version "1.8.3"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
 
 union-value@^1.0.0:
   version "1.0.0"
