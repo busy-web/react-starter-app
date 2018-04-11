@@ -17,9 +17,9 @@ module.exports = (baseConfig, env, config) => {
   //config.resolve.extensions.push(".ts", ".tsx");
 
 	if (!config.resolve.alias) {
-		config.resolve.alias = { smartbot: path.resolve(__dirname, "../app") };
+		config.resolve.alias = { "@app": path.resolve(__dirname, "../src") };
 	} else {
-		config.resolve.alias.smartbot = path.resolve(__dirname, "../app");
+		config.resolve.alias["@app"] = path.resolve(__dirname, "../src");
 	}
 
   return config;

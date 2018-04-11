@@ -4,12 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
+const pkg = require('./package.json');
 
 module.exports = {
 	target: "web",
 
 	entry: {
-		app: "./app/index"
+		app: "./src/index"
 	},
 
 	output: {
@@ -20,13 +21,13 @@ module.exports = {
 	resolve: {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: [".jsx", ".js", ".json", ".css"],
-		alias: { "smartbot": path.resolve(__dirname, "app") }
+		alias: { "@app": path.resolve(__dirname, "src") }
 	},
 
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'Smart Bot',
-			template: './app/index.html'
+			title: pkg.name,
+			template: './src/index.html'
 		}),
 
 		new CleanWebpackPlugin(['dist']),
@@ -59,7 +60,7 @@ module.exports = {
 					{
 						loader: "css-loader",
 						options: {
-							alias: { "smartbot": path.resolve(__dirname, "app") }
+							alias: { "@app": path.resolve(__dirname, "src") }
 						}
 					}
 				]

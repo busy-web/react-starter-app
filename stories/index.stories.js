@@ -5,8 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import { Welcome } from '@storybook/react/demo';
-import Button from 'smartbot/components/button';
-//import Header from 'smartbot/components/header';
+import Button from '@app/components/button';
+//import Header from '@app/components/header';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Header')} />);
 
