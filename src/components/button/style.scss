@@ -1,0 +1,47 @@
+
+.c-button {
+	display: inline-block;
+	padding: 6px 15px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background-color: #fff;
+	color: #666;
+	font-size: 16px;
+	cursor: pointer;
+	-webkit-appearance: none;
+
+	&.grey,
+	&.gray {
+		border-color: darken(#bfbfbf, 10%);
+		background-color: #bfbfbf;
+		color: #333;
+	}
+
+	&.blue {
+		border-color: darken(#30aeef, 10%);
+		background-color: #30aeef;
+		color: #efefef;
+	}
+
+	&.green {
+		border-color: darken(#4ea856, 10%);
+		background-color: #4ea856;
+		color: #efefef;
+	}
+
+	&.red {
+		border-color: darken(#f44336, 10%);
+		background-color: #f44336;
+		color: #efefef;
+
+		&:hover {
+			background-color: lighten(#f44336, 5%);
+		}
+	}
+
+	&.text {
+		border-color: transparent;
+		background-color: transparent;
+		color: #30aeef;
+	}
+}

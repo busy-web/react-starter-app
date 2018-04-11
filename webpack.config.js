@@ -49,7 +49,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
+				test: /\.scss$/,
 				use: [
 					{
 						loader: "style-loader",
@@ -62,6 +62,12 @@ module.exports = {
 						options: {
 							alias: { "@app": path.resolve(__dirname, "src") }
 						}
+					},
+					{
+						loader: "sass-loader",
+						//options: {
+						//	includePaths: []
+						//}
 					}
 				]
 			},

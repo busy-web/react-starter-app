@@ -4,7 +4,7 @@
  *
  */
 import * as React from 'react';
-import '@app/components/body.css';
+import './style.scss';
 
 /**
  * @class BodyContainer

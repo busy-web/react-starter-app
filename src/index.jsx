@@ -4,7 +4,8 @@
  */
 import * as React from 'react';
 import { render } from 'react-dom';
-import '@app/style.css';
+import '@app/styles/index.scss';
+
 import App from '@app/app';
 
 let body = document.body;

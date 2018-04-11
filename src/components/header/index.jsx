@@ -4,7 +4,7 @@
  *
  */
 import * as React from 'react';
-import '@app/components/header.css';
+import './style.scss';
 
 /**
  * @class Header

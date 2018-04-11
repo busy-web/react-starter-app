@@ -4,7 +4,7 @@
  *
  */
 import * as React from 'react';
-import '@app/components/button.css';
+import './style.scss';
 
 type Prop = {
 	type?: string;
@@ -19,7 +19,7 @@ type Prop = {
 export default class Button extends React.Component<Prop> {
 	render() {
 		// generate className
-		const className: string = `c-button ${this.props.type || 'grey'}`;
+		const className: string = `c-button ${this.props.type || ''}`;
 
 		// return component
 		return (<button className={className} onClick={this.props.onClick}>{this.props.children}</button>);
