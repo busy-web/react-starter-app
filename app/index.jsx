@@ -1,19 +1,27 @@
+/**
+ * @flow
+ *
+ */
 import * as React from 'react';
 import { render } from 'react-dom';
 import 'smartbot/style.css';
 
 import App from './app';
 
-//console.log(style);
+let body = document.body;
+if (body !== null) {
+	const root = document.createElement('div');
+	root.classList.add('application');
+	const scripts = body.getElementsByTagName('script');
 
-const root = document.createElement('div');
-root.classList.add('application');
-const scripts = document.body.getElementsByTagName('script');
+	if (scripts.length) {
+		body.insertBefore(root, scripts[0]);
+	} else {
+		body.appendChild(root);
+	}
 
-if (scripts.length) {
-	document.body.insertBefore(root, scripts[0]);
+	render(<App />, root);
 } else {
-	document.body.appendChild(root);
+	throw new Error("Document.body not found in DOM");
 }
 
-render(<App />, root);

@@ -12,7 +12,7 @@ export default class Header extends React.Component {
 	render() {
 		return (
 			<div className="c-header">
-				<span className="c-header-logo">Smart Bot</span>
+				<span className="c-header-logo"><p>busy</p><p>busy</p></span>
 			</div>
 		);
 	}
