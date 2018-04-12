@@ -2,28 +2,30 @@
 .*/.storybook/.*
 .*/config/.*
 .*/.git/.*
-#.*/node_modules/.*
 .*/stories/.*
-.*/tests/.*
+.*/__tests__/.*
 .*/package.json
 .*/webpack.config.js
+.*/dist/.*
+#.*/node_modules/.*
 
 [include]
-app/
-
-[libs]
-flow-typed
 
 [options]
-all=false
-include_warnings=true
-esproposal.decorators=ignore
 server.max_workers=2
-module.file_ext=.js
-module.file_ext=.jsx
-module.file_ext=.json
-module.file_ext=.scss
-module.file_ext=.css
 module.name_mapper='^@app\/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
-module.name_mapper='.*\(\.scss\)' -> 'empty/object'
+module.name_mapper='^@node\/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/\1'
+module.name_mapper='.*\.scss$' -> '<PROJECT_ROOT>/flow-types/stub/css-mod.js'
+module.name_mapper='.*\.\(svg\|png\|jpg\|gif\)$' -> '<PROJECT_ROOT>/flow-types/stub/file-mod.js'
+
+#module.file_ext=.js
+#module.file_ext=.jsx
+#module.file_ext=.json
+#module.file_ext=.scss
 module.system.node.resolve_dirname=node_modules
+
+#all=false
+#include_warnings=true
+#esproposal.decorators=ignore
+#module.file_ext=.css
+#module.name_mapper='.*\(\.scss\)' -> 'empty/object'

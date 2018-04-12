@@ -19,9 +19,13 @@ module.exports = {
 	},
 
 	resolve: {
+		modules: ['node_modules'],
+
 		// Add '.ts' and '.tsx' as resolvable extensions.
-		extensions: [".jsx", ".js", ".json", ".css"],
-		alias: { "@app": path.resolve(__dirname, "src") }
+		extensions: [".jsx", ".js", ".json", ".css", '.scss'],
+		alias: {
+			"@app": path.resolve(__dirname, "src")
+		}
 	},
 
 	plugins: [
@@ -51,24 +55,9 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				use: [
-					{
-						loader: "style-loader",
-						options: {
-							hmr: false
-						}
-					},
-					{
-						loader: "css-loader",
-						options: {
-							alias: { "@app": path.resolve(__dirname, "src") }
-						}
-					},
-					{
-						loader: "sass-loader",
-						//options: {
-						//	includePaths: []
-						//}
-					}
+					{ loader: "style-loader", options: { hmr: false }},
+					{ loader: "css-loader", options: { alias: { "@app": path.resolve(__dirname, "src") }}},
+					{ loader: "sass-loader" }
 				]
 			},
 			{
