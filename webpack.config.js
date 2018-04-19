@@ -3,7 +3,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const FlowWebpackPlugin = require('flow-webpack-plugin');
 const pkg = require('./package.json');
 
 module.exports = {
@@ -37,16 +36,8 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
-
-		new FlowWebpackPlugin({
-			failOnError: false,
-			failOnErrorWatch: false,
-			reportingSeverity: 'error',
-			printFlowOutput: true,
-			flowPath: require.main.require('flow-bin'),
-			flowArgs: ['--color=always'],
-			verbose: false,
-			callback: (result) => {}
+		new webpack.ProvidePlugin({
+			React: "react"
 		})
 	],
 

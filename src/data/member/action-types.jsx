@@ -1,5 +1,4 @@
 /**
- * @flow
  * @module Data.Member
  *
  */

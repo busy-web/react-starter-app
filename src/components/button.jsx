@@ -1,22 +1,15 @@
 /**
- * @flow
  * @module Component
  *
  */
-import * as React from 'react';
-import './style.scss';
-
-type Prop = {
-	type?: string;
-	onClick?: () => void;
-	children?: React.Node;
-}
+import { Component } from 'react';
+import '@app/styles/component/button.scss';
 
 /**
  * @class Button
- * @extends React.Component
+ * @extends Component
  */
-export default class Button extends React.Component<Prop> {
+export default class Button extends Component {
 	render() {
 		// generate className
 		const className: string = `c-button ${this.props.type || ''}`;

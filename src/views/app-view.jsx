@@ -1,24 +1,21 @@
 /**
- * @flow
  * @module View
  *
  */
-import * as React from 'react';
-
-import Header from '@app/components/header';
-import BodyContainer from '@app/components/body';
+import AppHeader from '@app/components/app-header';
+import AppBody from '@app/components/app-body';
 
 /**
  * @public
  * @method AppView
  */
-export default function AppView(): React.Node {
+export default function AppView() {
 	return (
 		<div className="application-view">
-			<Header />
-			<BodyContainer>
+			<AppHeader />
+			<AppBody>
 				Application rendered
-			</BodyContainer>
+			</AppBody>
 		</div>
 	);
 }

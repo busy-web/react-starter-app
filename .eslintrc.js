@@ -2,12 +2,10 @@ module.exports = {
   root: true,
 	parser: "babel-eslint",
   plugins: [
-    'react',
-		'flowtype'
+    'react'
   ],
   extends: [
     'eslint:recommended',
-		'plugin:flowtype/recommended'
   ],
   env: {
     browser: true

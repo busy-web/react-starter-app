@@ -1,5 +1,4 @@
 /**
- * @flow
  * @module Data.Member
  *
  */
@@ -16,11 +15,10 @@ class Store extends ReduceStore {
 		return {};
 	}
 
-	reduce(state: ReduceStore.TState, action: Object) {
+	reduce(state, action) {
 		switch (action.type) {
 			case actionTypes.ADD_MEMBER:
 				return state;
-
 			default:
 				return state;
 		}

@@ -1,5 +1,4 @@
 /**
- * @flow
  * @module Data.Member
  *
  */
@@ -7,7 +6,7 @@ import actionTypes from '@app/data/member/action-types';
 import dispatcher from '@app/data/member/dispatcher';
 
 const actions = {
-	addMember(firstName: string, lastName: string, email: string) {
+	addMember(firstName, lastName, email) {
 		dispatcher.dispatch({
 			type: actionTypes.ADD_MEMBER,
 			firstName,

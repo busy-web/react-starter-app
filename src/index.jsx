@@ -1,8 +1,6 @@
 /**
- * @flow
- *
+ * @module Main
  */
-import * as React from 'react';
 import { render } from 'react-dom';
 import '@app/styles/index.scss';
 

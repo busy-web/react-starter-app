@@ -1,0 +1,30 @@
+
+
+.c-app-header {
+	width: 100%;
+	height: 56px;
+	background-color: #2d3e50;
+	font-family: sans-serif;
+	text-align: center;
+
+	& > .c-app-header-logo {
+		display: inline-block;
+		color: #fefefe;
+		font-size: 32px;
+		line-height: 56px;
+		text-align: center;
+
+		& > p {
+			display: inline;
+			margin: 0;
+			padding: 0;
+			float: right;
+			font-size: 24px;
+			letter-spacing: -2px;
+
+			&:first-of-type {
+				color: #fbbd15;
+			}
+		}
+	}
+}
