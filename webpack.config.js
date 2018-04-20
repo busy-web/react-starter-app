@@ -9,11 +9,11 @@ module.exports = {
 	target: "web",
 
 	entry: {
-		app: "./src/index"
+		app: "./src/loader"
 	},
 
 	output: {
-		filename: "bundle.js",
+		filename: "application.js",
 		path: path.resolve(__dirname, "dist")
 	},
 

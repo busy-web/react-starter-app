@@ -3,6 +3,7 @@
  *
  */
 const actionTypes = {
+	GET_MEMBER: 'get-member',
 	ADD_MEMBER: 'add-member'
 };
 

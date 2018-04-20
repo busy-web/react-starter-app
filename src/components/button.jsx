@@ -3,7 +3,7 @@
  *
  */
 import { Component } from 'react';
-import '@app/styles/component/button.scss';
+import '@app/styles/components/button.scss';
 
 /**
  * @class Button

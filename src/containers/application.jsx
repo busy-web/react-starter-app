@@ -5,6 +5,7 @@
  */
 import { Container } from 'flux/utils';
 import MemberStore from '@app/data/member/store';
+import MemberActions from '@app/data/member/actions';
 import AppView from '@app/views/app-view';
 
 function getStores() {
@@ -16,7 +17,8 @@ function getStores() {
 
 function getState() {
 	return {
-		// states go here
+		members: MemberStore.getState(),
+		onAddMember: MemberActions.addMember,
 	};
 }
 
