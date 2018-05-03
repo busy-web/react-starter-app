@@ -8,10 +8,19 @@ import uuid from 'uuid';
 import actionTypes from '@app/data/member/action-types';
 import dispatcher from '@app/data/member/dispatcher';
 import Member from '@app/data/member';
+import API from '@app/utils/api';
+
+const API_URL = 'http://api-beta.busybusy.io';
 
 class Store extends ReduceStore {
 	constructor() {
 		super(dispatcher);
+
+		const url = `${API_URL}/member`;
+		console.log('api call', url);
+		API.get(url, { username: 'suclimbing' }).then(data => {
+			console.log('data', data);
+		}).catch(err => console.log(err));
 	}
 
 	getInitialState() {
