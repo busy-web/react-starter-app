@@ -2,14 +2,12 @@
  * @module Utils
  *
  */
-import { Promise } from 'rsvp';
-import Query from './query';
+//import { Promise } from 'rsvp';
 import { eachProperty } from './object';
 import { assert } from './debug';
 import {
 	definedT,
 	objectT,
-	arrayT,
 	stringT,
 	funcT,
 	boolT
@@ -28,6 +26,8 @@ const DEFAULTS = {
 	contentType: 'application/json; charset=utf-8',
 	upload: false,
 	headers: {},
+	responseType: 'json',
+	withCredentials: false
 };
 
 
@@ -67,43 +67,42 @@ const STATUS_CODES = {
  *
  * Provides simple interface to use JS native XMLHttpRequest
  */
-export default {
-	get(url, data={}, options={}) {
-		assert("get() requires a url {string} as the first param", stringT(url));
-		options.data = data;
-		console.log('options', options);
-		return request(url, TYPES.GET, options);
-	},
+export function getreq(url, data={}, options={}) {
+	assert("get() requires a url {string} as the first param", stringT(url));
+	options.data = data;
+	return request(url, TYPES.GET, options);
+}
 
-	post(url, data={}, options={}) {
-		assert("post() requires a url {string} as the first param", stringT(url));
-		options.data = data;
-		return request(url, TYPES.POST, options);
-	},
+export function postreq(url, data={}, options={}) {
+	assert("post() requires a url {string} as the first param", stringT(url));
+	options.data = data;
+	return request(url, TYPES.POST, options);
+}
 
-	put(url, data={}, options={}) {
-		assert("put() requires a url {string} as the first param", stringT(url));
-		options.data = data;
-		return request(url, TYPES.PUT, options);
-	},
+export function putreq(url, data={}, options={}) {
+	assert("put() requires a url {string} as the first param", stringT(url));
+	options.data = data;
+	return request(url, TYPES.PUT, options);
+}
 
-	patch(url, data={}, options={}) {
-		assert("patch() requires a url {string} as the first param", stringT(url));
-		options.data = data;
-		return request(url, TYPES.PATCH, options);
-	},
+export function patchreq(url, data={}, options={}) {
+	assert("patch() requires a url {string} as the first param", stringT(url));
+	options.data = data;
+	return request(url, TYPES.PATCH, options);
+}
 
-	delete(url, options={}) {
-		assert("delete() requires a url {string} as the first param", stringT(url));
-		return request(url, TYPES.DELETE, options);
-	},
+export function deletereq(url, options={}) {
+	assert("delete() requires a url {string} as the first param", stringT(url));
+	return request(url, TYPES.DELETE, options);
+}
 
-	send(opts={}) {
-		assert("send() requires an object with a property `url` in it", stringT(opts.url));
-		assert("opts `type` must be a string", !definedT(opts.type)	|| boolT(opts.type));
-		return request(opts.url, opts.type, opts);
-	}
-};
+export function sendreq(opts={}) {
+	assert("send() requires an object with a property `url` in it", stringT(opts.url));
+	assert("opts `type` must be a string", !definedT(opts.type)	|| boolT(opts.type));
+	return request(opts.url, opts.type, opts);
+}
+
+export default { getreq, postreq, putreq, patchreq, deletereq };
 
 function request(url, type=TYPES.GET, opts={}) {
 	assert("request url must be a string", stringT(url));
@@ -113,24 +112,44 @@ function request(url, type=TYPES.GET, opts={}) {
 	// set defaults for all opts not passed in
 	opts = mergeDefaults(opts);
 
-	console.log(opts);
-
 	// throw an error on all opts that fail validation
 	validateOpts(opts);
 
 	// create new xhr request
 	const xhr = new XMLHttpRequest();
 
+	// set the context for this call
+	opts.context = objectT(opts.context) ? opts.context : null;
+
+	// create getter params for GET requests
+	let body = setupBody(opts);
+
+	if (stringT(body) && body.length) {
+		if (/=null/.test(body)) {
+			body = body.replace(/=null/g, '=');
+		}
+		url = url + '?' + body;
+		body = null;
+	}
+
 	// open request
-	xhr.open(type, url);
+	xhr.open(type, url, true);
+
+	// cross origin send cookies
+	xhr.withCredentials = opts.withCredentials;
+
+	// set the requested response type
+	xhr.responseType = opts.responseType;
+
+	// override mime type
+	if (stringT(opts.mimeType)) {
+		xhr.overrideMimeType(opts.mimeType);
+	}
 
 	// set contentType from opts or use default contentType
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded'); //opts.contentType);
-	//xhr.setRequestHeader('accept', 'application/vnd.api+json');
-	//xhr.setRequestHeader('accept-encoding', 'gzip, deflate, br');
-	//xhr.setRequestHeader('accept-language', 'en-US,en;q=0.9,es-ES;q=0.8,es;q=0.7,en-AU;q=0.6,es-MX;q=0.5,de-DE;q=0.4,de;q=0.3,da;q=0.2');
-	//xhr.withCredentials = true;
+	xhr.setRequestHeader('Content-Type', opts.contentType);
 
+	// set optional headers
 	if (objectT(opts.headers)) {
 		eachProperty(opts.headers, (val, key) => {
 			if (stringT(val)) {
@@ -138,17 +157,6 @@ function request(url, type=TYPES.GET, opts={}) {
 			}
 		});
 	}
-
-	if (stringT(opts.mimeType)) {
-		xhr.overrideMimeType(opts.mimeType);
-	}
-
-	// set the context for this call
-	opts.context = objectT(opts.context) ? opts.context : null;
-
-	// create getter params for GET requests
-	const body = setupBody(opts);
-	console.log('send data', body);
 
 	// return a promise object
 	return new Promise((resolve, reject) => {
@@ -168,32 +176,29 @@ function request(url, type=TYPES.GET, opts={}) {
 
 		//xhr.onreadystatechange = () => onSuccess(xhr, opts, resolve, reject);
 
+		console.log('send', body);
 		xhr.send(body);
 	});
 }
 
 function xhrSuccess(xhr, opts, resolve, reject) {
-	console.log(xhr.readyState, xhr.status);
 	if (xhr.readyState === XMLHttpRequest.DONE) {
 		if (xhr.status === 200 || xhr.status === 300 || xhr.status === 304) {
-			let payload = xhr.responseText;
-			if (xhr.responseType === 'json' && stringT(payload)) {
-				payload = JSON.parse(payload);
-			}
-
 			// call success callback if it was provided
 			if (funcT(opts.success)) {
-				opts.success.call(opts.context, payload, xhr.statusText, xhr);
+				opts.success.call(opts.context, xhr.resolve, xhr.status, xhr);
 			}
 
 			// resolve promise
-			resolve({ payload, xhr });
+			resolve({ payload: xhr.response, xhr });
 		} else {
+			// handle error
 			xhrError(xhr, opts, reject);
 		}
 
+		// always call on complete
 		if (funcT(opts.complete)) {
-			opts.complete.apply(opts.context, args);
+			opts.complete.apply(opts.context);
 		}
 	}
 }
@@ -216,12 +221,12 @@ function setupBody(opts) {
 			params = opts.data;
 		} else if (window.ReadableStream && opts.data instanceof ReadableStream) {
 			params = opts.data;
-		} else if (window.USVString && opts.data instanceof USVString) {
+		} else if (window.USVString && opts.data instanceof window.USVString) {
 			params = opts.data;
-		}  else if (window.BufferSource && opts.data instanceof BufferSource) {
+		}  else if (window.BufferSource && opts.data instanceof window.BufferSource) {
 			params = opts.data;
 		} else {
-			params = opts.data; //new URLSearchParams(opts.data);
+			params = new URLSearchParams(opts.data).toString();
 		}
 	}
 	return params;
@@ -243,11 +248,13 @@ function mergeDefaults(opts) {
 
 function validateOpts(opts) {
 	//defined booleans
-	assert("option `upload` must be a boolean",	!definedT(opts.upload) || boolT(opts.upload));
+	assert("option `withCredentials` must be a boolean",	!definedT(opts.withCredentials) || boolT(opts.withCredentials));
+	assert("option `upload` must be a boolean",						!definedT(opts.upload)					|| boolT(opts.upload));
 
 	// defined strings
-	assert("option `contentType` must be a string",	!definedT(opts.contentType)	|| stringT(opts.contentType));
-	assert("option `mimeType` must be a string",		!definedT(opts.mimeType)		|| stringT(opts.mimeType));
+	assert("option `contentType` must be a string",		!definedT(opts.contentType)		|| stringT(opts.contentType));
+	assert("option `responseType` must be a string",	!definedT(opts.responseType)	|| stringT(opts.responseType));
+	assert("option `mimeType` must be a string",			!definedT(opts.mimeType)			|| stringT(opts.mimeType));
 
 	// defined objects
 	assert("option `headers` must be an object", !definedT(opts.headers)	|| objectT(opts.headers));

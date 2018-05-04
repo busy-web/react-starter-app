@@ -11,7 +11,7 @@ module.exports = {
     browser: true
 	},
 	settings: {
-		ecmascript: 6,
+		ecmascript: "es2017",
 		jsx: true
 	},
 	rules: {
@@ -20,6 +20,7 @@ module.exports = {
 		//"no-unused-vars": 0,
 		//"no-underscore-dangle": 0
 	},
+	global: [ 'Promise' ],
 	overrides: [
     {
       files: [

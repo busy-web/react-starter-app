@@ -22,3 +22,20 @@ export function eachProperty(value, cb, target=null) {
 	});
 	return map;
 }
+
+/**
+ * merge props fromObj => toObj and fromObj will
+ * override toObj props if they already exist.
+ *
+ * @public
+ * @method merge
+ * @param outObj {object}
+ * @param inObj {object}
+ * @return {object} outObj
+ */
+export function merge(toObj, fromObj) {
+	eachProperty(fromObj, (val, key) => {
+		toObj[key] = val;
+	});
+	return toObj;
+}

@@ -8,9 +8,7 @@ const pkg = require('./package.json');
 module.exports = {
 	target: "web",
 
-	entry: {
-		app: "./src/loader"
-	},
+	entry: ['babel-polyfill', './src/loader'],
 
 	output: {
 		filename: "application.js",
