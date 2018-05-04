@@ -2,11 +2,11 @@
  * @module Main
  */
 import { render } from 'react-dom';
-import '@app/styles/index.scss';
-
 import App from '@app/app';
 
-let body = document.body;
+render(<App />, document.getElementById('application'));
+
+/**let body = document.body;
 if (body !== null) {
 	const root = document.createElement('div');
 	root.classList.add('application');
@@ -22,4 +22,4 @@ if (body !== null) {
 } else {
 	throw new Error("Document.body not found in DOM");
 }
-
+*/

@@ -15,8 +15,8 @@ class Store extends ReduceStore {
 		super(Member.dispatcher);
 
 		this.__store = new ApplicationStore();
-		this.__store.find('member', { deleted_on: null })
-			.then(d => d.forEach(m => Member.actions.addMember(m)));
+		//this.__store.find('member', { deleted_on: null })
+		//	.then(d => d.forEach(m => Member.actions.addMember(m)));
 	}
 
 	getInitialState() {

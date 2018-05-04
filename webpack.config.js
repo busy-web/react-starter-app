@@ -65,7 +65,11 @@ module.exports = {
 	},
 
 	devServer: {
+		hot: true,
+		stats: "errors-only",
 		contentBase: './dist',
-		hot: true
+
+		host: process.env.HOST || 'localhost',
+		port: process.env.PORT || '4200'
 	}
 };

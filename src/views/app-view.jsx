@@ -52,7 +52,7 @@ export default function AppView(props) {
 			<AppHeader />
 			<AppBody>
 				<div className="member-header">
-					<span className="page-title">Members ({props.members && props.members.size ? props.members.size : 0})</span>
+					<span className="page-title">Members (Results: {props.members && props.members.size ? props.members.size : 0})</span>
 					<span className="add-member"><Button type="blue" onClick={() => generateMember(props.onAddMember)}>Create Member</Button></span>
 				</div>
 
