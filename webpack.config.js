@@ -35,7 +35,8 @@ module.exports = {
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.ProvidePlugin({
-			React: "react"
+			React: "react",
+			cryptojs: "crypto-js"
 		})
 	],
 

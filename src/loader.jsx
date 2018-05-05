@@ -2,24 +2,16 @@
  * @module Main
  */
 import { render } from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from '@app/reducer';
 import App from '@app/app';
 
-render(<App />, document.getElementById('application'));
+const store = createStore(reducer);
 
-/**let body = document.body;
-if (body !== null) {
-	const root = document.createElement('div');
-	root.classList.add('application');
-	const scripts = body.getElementsByTagName('script');
-
-	if (scripts.length) {
-		body.insertBefore(root, scripts[0]);
-	} else {
-		body.appendChild(root);
-	}
-
-	render(<App />, root);
-} else {
-	throw new Error("Document.body not found in DOM");
-}
-*/
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('application')
+);

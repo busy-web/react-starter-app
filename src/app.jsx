@@ -1,11 +1,13 @@
 /**
  * @module App
  */
-import { hot } from 'react-hot-loader'
+import { hot } from 'react-hot-loader';
+import AppRouter from '@app/router';
 import '@app/styles/index.scss';
 
 const App = () => (
-	<div className="main">
+	<div className="container">
+		<AppRouter />
 	</div>
 );
 

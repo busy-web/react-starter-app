@@ -5,7 +5,8 @@ module.exports = {
     'react'
   ],
   extends: [
-    'eslint:recommended',
+		'eslint:recommended',
+		"plugin:react/recommended"
   ],
   env: {
     browser: true
@@ -15,12 +16,16 @@ module.exports = {
 		jsx: true
 	},
 	rules: {
+		"react/react-in-jsx-scope": 0,
+		"react/jsx-uses-react": 2,
+		"react/prop-types": 0,
+		"no-global-assign": 2,
 		//"strict": 0,
 		//"quotes": 0,
 		//"no-unused-vars": 0,
 		//"no-underscore-dangle": 0
 	},
-	global: [ 'Promise' ],
+	globals: { Promise: true },
 	overrides: [
     {
       files: [

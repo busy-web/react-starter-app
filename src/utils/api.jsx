@@ -98,7 +98,7 @@ export function deletereq(url, options={}) {
 
 export function sendreq(opts={}) {
 	assert("send() requires an object with a property `url` in it", stringT(opts.url));
-	assert("opts `type` must be a string", !definedT(opts.type)	|| boolT(opts.type));
+	assert("opts `type` must be a string", !definedT(opts.type)	|| stringT(opts.type));
 	return request(opts.url, opts.type, opts);
 }
 
