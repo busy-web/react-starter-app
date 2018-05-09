@@ -2,7 +2,7 @@
  * @module Models
  *
  */
-import { FILTERS } from '@app/model-actions/member';
+import { FILTERS } from '@app/actions/member';
 
 const initialState = {
 	filter: FILTERS.all,

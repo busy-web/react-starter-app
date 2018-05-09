@@ -4,6 +4,7 @@
  */
 import { assert } from './debug';
 import { objectT, funcT } from './types';
+import { camelize, underscore } from './string';
 
 /**
  * @public
@@ -38,4 +39,21 @@ export function merge(toObj, fromObj) {
 		toObj[key] = val;
 	});
 	return toObj;
+}
+
+
+export function serialize(propkeys, props) {
+	let properties = {};
+	propkeys.forEach(k => {
+		properties[underscore(k)] = props[k];
+	});
+	return properties;
+}
+
+export function deserialize(propkeys, props) {
+	let properties = {};
+	propkeys.forEach(k => {
+		properties[camelize(k)] = props[k];
+	});
+	return properties;
 }

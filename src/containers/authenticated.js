@@ -4,7 +4,7 @@
  */
 import { connect } from 'react-redux';
 import Button from '@app/components/button';
-import { fetchAuth } from '@app/model-actions/auth';
+import { fetchAuth } from '@app/actions/auth';
 
 const mapStateToProps = (state) => {
 	let { auth } = state;

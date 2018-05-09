@@ -2,29 +2,16 @@
  * @module Models
  *
  */
-const filters = {
-	all: 'filter_all',
-	open: 'filter_open',
-	date: 'filter_date',
-	archived: 'filter_archived',
-};
+import { normalizeState } from '@app/utils/actions';
 
-const actions = {
-
-};
-
-const initialState = {
-	filter: filters.all,
-	timeEntry: []
-};
+const initialState = normalizeState(null, { recordType: 'time-entry', loadRecords: true });
 
 function reducer(state = initialState, action) {
-	switch (action.type) {
-		default:
-			return state;
+	if (action.type) {
+		return Object.assign({}, state, action);
+	} else {
+		return state;
 	}
 }
-
-export { filters, actions };
 
 export default reducer;

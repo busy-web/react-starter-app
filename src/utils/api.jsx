@@ -59,7 +59,9 @@ const STATUS_CODES = {
 	504: "Gateway Timeout",
 	505: "HTTP Version Not Supported",
 	507: "Insufficient Storage",
-	508: "Loop Detected"
+	508: "Loop Detected",
+
+	450: "Unknown Error"
 };
 
 /**
@@ -176,7 +178,7 @@ function request(url, type=TYPES.GET, opts={}) {
 
 		//xhr.onreadystatechange = () => onSuccess(xhr, opts, resolve, reject);
 
-		console.log('send', body);
+		//console.log('send', body);
 		xhr.send(body);
 	});
 }
@@ -207,7 +209,16 @@ function xhrError(xhr, opts, reject) {
 	if (funcT(opts.error)) {
 		opts.error.call(opts.context, xhr.statusText, xhr);
 	}
-	reject({ error: xhr.statusText, xhr });
+	reject({ error: generateErrorCode(xhr.status), xhr });
+}
+
+function generateErrorCode(status=450) {
+	let msg = STATUS_CODES[status];
+	if (!msg || msg.length === 0) {
+		status = 450;
+		msg = STATUS_CODES[status];
+	}
+	return `${status} ${msg}`;
 }
 
 function setupBody(opts) {

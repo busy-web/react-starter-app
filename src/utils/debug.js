@@ -3,6 +3,11 @@
  *
  */
 
+let { console } = window;
+if (!console) {
+	console = () => false;
+}
+
 /**
  * Throw error if test is not passed
  *
@@ -18,6 +23,14 @@ export function assert(message, test) {
 	}
 
 	if (!test) {
-		throw new Error(message);
+		console.assert(false, message);
+	}
+}
+
+export function funcNumArgs(arglen, args, allowLessArgs=false) {
+	if (args.length > arglen) {
+		console.warn("funcNumArgs: too many arguments for function call");
+	} else if (!allowLessArgs && args.length < arglen) {
+		console.warn("funcNumArgs: not enough arguments for function call");
 	}
 }

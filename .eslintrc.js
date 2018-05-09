@@ -25,7 +25,7 @@ module.exports = {
 		//"no-unused-vars": 0,
 		//"no-underscore-dangle": 0
 	},
-	globals: { Promise: true },
+	globals: { Promise: true, module: true, Symbol: true },
 	overrides: [
     {
       files: [

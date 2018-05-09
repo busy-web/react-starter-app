@@ -1,4 +1,6 @@
 
+require('dotenv').config();
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -21,7 +23,8 @@ module.exports = {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: [".jsx", ".js", ".json", ".css", '.scss'],
 		alias: {
-			"@app": path.resolve(__dirname, "src")
+			"@app": path.resolve(__dirname, "src"),
+			"@config": path.resolve(__dirname, "config")
 		}
 	},
 
@@ -34,6 +37,7 @@ module.exports = {
 		new CleanWebpackPlugin(['dist']),
 		new webpack.NamedModulesPlugin(),
 		new webpack.HotModuleReplacementPlugin(),
+
 		new webpack.ProvidePlugin({
 			React: "react",
 			cryptojs: "crypto-js"
@@ -61,13 +65,20 @@ module.exports = {
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/,
 				use: ['file-loader']
+			},
+			{
+				test: /^@config/,
+				use: ['node-loader']
 			}
 		]
 	},
 
 	devServer: {
 		hot: true,
+		quiet: false,
+		noInfo: false,
 		stats: "errors-only",
+		clientLogLevel: 'error',
 		contentBase: './dist',
 
 		host: process.env.HOST || 'localhost',

@@ -7,12 +7,12 @@ import { stringT } from './types';
 
 export function underscore(value) {
 	assert("underscore() requires a string as the first param", stringT(value));
-	return value.replace(/([-_ A-Z])/g, '_$1').toLowerCase().replace(/^_/, '');
+	return value.replace(/([-_ A-Z])/g, '_').toLowerCase().replace(/^_/, '');
 }
 
 export function dasherize(value) {
 	assert("dasherize() requires a string as the first param", stringT(value));
-	return value.replace(/([-_ A-Z])/g, '-$1').toLowerCase().replace(/^-/, '');
+	return value.replace(/([-_ A-Z])/g, '-').toLowerCase().replace(/^-/, '');
 }
 
 export function camelize(value) {

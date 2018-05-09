@@ -7,7 +7,7 @@ import {
 	RECEIVE_AUTH,
 	REMOVE_AUTH,
 	getAuthHash
-} from '@app/model-actions/auth';
+} from '@app/actions/auth';
 
 
 const initialState = getAuthHash();

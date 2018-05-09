@@ -4,10 +4,11 @@
  */
 import CryptoJS from 'crypto-js';
 import { sendreq } from '@app/utils/api';
-import { stringT } from '@app/utils/types';
+import { getAuth, setAuth, deleteAuth } from '@app/utils/auth';
+import config from '@config/environment';
 
 
-const API_URL = 'https://api-beta.busybusy.io/member';
+const API_URL = config.api.url + '/member';
 
 export const IS_AUTHENTICATED = "IS_AUTHENTICATED";
 export function isAuthenticated() {
@@ -64,24 +65,15 @@ export function fetchAuth(username, password, dispatch) {
 }
 
 export function getAuthHash() {
-	let auth = localStorage.getItem('auth-member');
-	if (stringT(auth)) {
-		let { id, token } = JSON.parse(auth);
-		return { id, token, isAuthenticated: true };
-	}
-	return { isAuthenticated: false };
+	return getAuth();
+}
+
+function saveAuthHash(id, token) {
+	return setAuth({ id, token });
 }
 
 export const REMOVE_AUTH = "REMOVE_AUTH";
 export function removeAuthHash() {
-	localStorage.removeItem('auth-member');
+	deleteAuth();
 	return { type: REMOVE_AUTH, state: { isAuthenticated: false } };
-}
-
-function saveAuthHash(id, token) {
-	if (stringT(id) && stringT(token)) {
-		localStorage.setItem('auth-member', JSON.stringify({ id, token }));
-		return true;
-	}
-	return false;
 }

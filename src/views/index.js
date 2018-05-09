@@ -2,6 +2,7 @@
  * @module Views
  *
  */
+import TimeEntryClockContainer from '@app/containers/time-entry-clock';
 
 /**
  * @class IndexView
@@ -9,7 +10,9 @@
  */
 const Index = () => (
 	<div className="v-index">
-		<div>Index View</div>
+		<div>
+			<TimeEntryClockContainer />
+		</div>
 	</div>
 )
 

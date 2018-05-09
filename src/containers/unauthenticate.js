@@ -3,7 +3,7 @@
  *
  */
 import { connect } from 'react-redux';
-import { removeAuthHash } from '@app/model-actions/auth';
+import { removeAuthHash } from '@app/actions/auth';
 
 const AuthView = ({ dispatch }) => {
 	return <span className="nav-link"><a onClick={() => dispatch(removeAuthHash())}>Log out</a></span>;
