@@ -55,7 +55,7 @@ export default class Adapter {
 
 		return getreq(url, query, options)
 			.then(data => handleSuccess(recordType, data, TYPES.FIND))
-			.catch(err => Promise.reject({ error: handleError(recordType, err, TYPES.FIND) }));
+			.catch(err => Promise.reject({ message: handleError(recordType, err, TYPES.FIND) }));
 	}
 
 	save(record) {

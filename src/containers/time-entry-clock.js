@@ -20,7 +20,7 @@ const TimeEntryClock = ({ memberId, state, dispatch }) => {
 	}
 
 	if (state.error) {
-		return <div className="error">{state.error}</div>
+		return <div className="error">{state.error.message}</div>
 	} else if (state.pending) {
 		return <div className="c-time-entry-clock-container">Loading...</div>;
 	} else if (state.loadRecords) {
