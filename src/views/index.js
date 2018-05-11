@@ -2,7 +2,7 @@
  * @module Views
  *
  */
-//import state from '@app/utils/state';
+//import state from '@app/services/state';
 
 /**
  * @class IndexView

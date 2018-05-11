@@ -3,8 +3,8 @@
  *
  */
 //import { Component } from 'react';
-import Time from '@app/utils/time';
-import { objectT } from '@app/utils/types';
+import Time from '@busyweb/time';
+import { objectT } from '@busyweb/types';
 import '@app/styles/components/clock.scss';
 
 const Clock = ({ openEntry }) => {

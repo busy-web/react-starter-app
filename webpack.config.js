@@ -24,6 +24,7 @@ module.exports = {
 		extensions: [".jsx", ".js", ".json", ".css", '.scss'],
 		alias: {
 			"@app": path.resolve(__dirname, "src"),
+			"@busyweb": path.resolve(__dirname, "lib"),
 			"@config": path.resolve(__dirname, "config")
 		}
 	},

@@ -2,7 +2,7 @@
  * @module Utils
  *
  */
-import { stringT, objectT } from '@app/utils/types';
+import { stringT, objectT } from '@busyweb/types';
 
 export function getAuth() {
 	let auth = localStorage.getItem('auth-member');
