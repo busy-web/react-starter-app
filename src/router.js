@@ -3,16 +3,16 @@
  *
  */
 import { BrowserRouter, Route } from 'react-router-dom';
-import AppBody from '@app/components/app-body';
+import Application from '@app/views/application';
 import IndexView from '@app/views/index';
 import EmployeesView from '@app/views/employees';
 
 const Router = () => (
 	<BrowserRouter>
-		<AppBody>
+		<Application>
 			<Route exact path="/" component={IndexView} />
 			<Route path="/employees" component={EmployeesView} />
-		</AppBody>
+		</Application>
 	</BrowserRouter>
 );
 

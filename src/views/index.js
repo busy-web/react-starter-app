@@ -2,8 +2,7 @@
  * @module Views
  *
  */
-import TimeEntryClockContainer from '@app/containers/time-entry-clock';
-import state from '@app/utils/state';
+//import state from '@app/utils/state';
 
 /**
  * @class IndexView
@@ -12,7 +11,7 @@ import state from '@app/utils/state';
 const Index = () => (
 	<div className="v-index">
 		<div>
-			<TimeEntryClockContainer memberId={state.auth.id} />
+			Index View
 		</div>
 	</div>
 )
