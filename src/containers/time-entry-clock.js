@@ -5,30 +5,39 @@
 import { connect } from 'react-redux';
 import Button from '@app/components/button';
 import Clock from '@app/components/clock';
-import { getAuth } from '@app/utils/auth';
-import { findOpen } from '@app/actions/time-entry';
+//import { getAuth } from '@app/utils/auth';
+//import { findOpen } from '@app/actions/time-entry';
+import { fetchOpenTimeEntry, createTimeEntry } from './time-entry/actions';
 
 const mapStateToProps = (state) => {
-	let { auth, timeEntry } = state;
-	return { state: timeEntry, memberId: auth.id };
-}
+	let { timeEntry } = state;
+	return { state: timeEntry };
+};
+
+/**
+const mapDispatchToProps = (dispatch) => {
+	return {
+		fetch: () => dispatch(fetchTimeEntries()),
+		create: (props) => dispatch(createTimeEntry(props))
+	}
+};
+*/
 
 const TimeEntryClock = ({ memberId, state, dispatch }) => {
-	if (!memberId) {
-		let { id } = getAuth();
-		memberId = id;
+	if (state.type === 'EMPTY') {
+		fetchOpenTimeEntry(dispatch, memberId);
 	}
-
-	if (state.error) {
+	/* if (state.error) {
 		return <div className="error">{state.error.message}</div>
 	} else if (state.pending) {
 		return <div className="c-time-entry-clock-container">Loading...</div>;
 	} else if (state.loadRecords) {
-		findOpen(memberId, dispatch);
+		//findOpen(memberId, dispatch);
 		return <div className="c-time-entry-clock-container">Loading...</div>;
-	} else {
-		let records = state.records || { objectAt: function() { return {} } };
-		let entry = records.objectAt(0);
+	} else { */
+	//let records = state.records;
+		let entry = state.openRecord;
+		console.log('entry', entry);
 		return (
 			<div className="c-time-entry-clock-container">
 				<div className="clock">
@@ -41,9 +50,8 @@ const TimeEntryClock = ({ memberId, state, dispatch }) => {
 				</div>
 			</div>
 		);
-	}
+	//}
 };
 
-const TimeEntryClockContainer = connect(mapStateToProps)(TimeEntryClock);
-export default TimeEntryClockContainer;
+export default connect(mapStateToProps)(TimeEntryClock);
 

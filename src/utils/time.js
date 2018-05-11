@@ -79,13 +79,13 @@ export default class Time {
 	 * @return {number|Time} returns the timestamp if a timestamp was not provided
 	 */
 	static unix(secs) {
+		let t = new Time(secs*1000);
+		let offset = t.timezone();
+
 		if (secs) {
-			let t = new Time(secs*1000);
-			let offset = t.timezone();
 			return new Time((secs + offset)*1000);
 		}
-
-		return truncate(Date.now()/1000);
+		return truncate(Date.now()/1000) - offset;
 	}
 }
 

@@ -13,33 +13,29 @@ export default class Record extends Object {
 	/**
 	 * class constructor
 	 */
-	constructor(recordType, props, meta={}, prevState={}) {
+	constructor(props, isNew=true) {
 		// call super
 		super({});
 
-		// deserialize the properties
-		const properties = deserialize(Object.keys(props), props);
+		this.__isNew__ = isNew;
 
 		// save recordType string
-		this.recordType = recordType;
-
-		// save property keys
-		this.__propkeys__ = Object.keys(properties);
-
-		// deserialize meta properties
-		meta = deserialize(Object.keys(meta), meta);
-
-		// save meta data
-		this.__meta__ = meta;
+		this.__type__ = props.type;
+		this.__id__ = props.id || Math.floor(Math.random() * 20);
 
 		this.__state__ = {};
-		this.__prevState__ = Object.assign({}, prevState);
+		this.__prevState__ = {};
 
 		// set props
-		this.setProperties(properties);
+		this.setProperties(props.attrs);
 	}
 
-	setProperties(props) {
+	setProperties(props={}) {
+		props = Object.assign({}, props);
+
+		// save property keys
+		this.__propkeys__ = Object.keys(props);
+
 		// set new state
 		this.__propkeys__.forEach(key => {
 			Object.defineProperty(this, key, {
@@ -71,15 +67,21 @@ export default class Record extends Object {
 	}
 
 	valueOf() {
-		let obj = {};
+		const type = this.__type__;
+		const id = this.__id__;
+
+		let attrs = {};
 		this.__propkeys__.forEach(k => {
-			obj[k] = this[k];
+			attrs[k] = this[k];
 		});
-		return obj;
+
+		return { type, id, attrs };
 	}
 
 	toJSON() {
-		return serialize(this.__propkeys__, this);
+		let json = serialize(this.__propkeys__, this);
+		json.id = this.__id__;
+		return json;
 	}
 
 	toString() {

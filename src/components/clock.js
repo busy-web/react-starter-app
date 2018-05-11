@@ -3,6 +3,7 @@
  *
  */
 //import { Component } from 'react';
+import Time from '@app/utils/time';
 import { objectT } from '@app/utils/types';
 import '@app/styles/components/clock.scss';
 
@@ -14,7 +15,7 @@ const Clock = ({ openEntry }) => {
 					(() => {
 						if (objectT(openEntry)) {
 							let start = openEntry.startTime;
-							let now = parseInt(Date.now()/1000, 10);
+							let now = Time.unix();
 							let diff = now - start;
 
 							let hours = parseInt(diff/3600, 10) * 3600;

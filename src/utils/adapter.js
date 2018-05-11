@@ -5,7 +5,7 @@
 import config from '@config/environment';
 import { getreq, postreq, patchreq } from './api';
 import { getAuth } from './auth';
-import { dasherize } from './string';
+import { camelize, dasherize } from './string';
 import RecordArray from './record-array';
 
 /***/
@@ -59,7 +59,7 @@ export default class Adapter {
 	}
 
 	save(record) {
-		const recordType = record.recordType;
+		const recordType = record.type;
 
 		//get url
 		const url = this.buildUrl(recordType);
@@ -96,24 +96,6 @@ export default class Adapter {
 	}
 }
 
-/**
- * generates a standardized model state result
- * for actions
- *
- * @public
- * @method modelState
- */
-function normalizeRecords(recordType, payload) {
-	let {
-		data,
-		next, prev,
-		returned_rows, total_rows,
-		public_key
-	} = payload;
-
-	return new RecordArray(recordType, data, { next, prev, returned_rows, total_rows, token: public_key });
-}
-
 function handleSuccess(recordType, payload, reqType) {
 	if (payload.payload) {
 		payload = payload.payload;
@@ -148,4 +130,42 @@ function handleError(recordType, payload, reqType) {
 	//window.console.warn(message);
 
 	return message;
+}
+
+/**
+ * generates a standardized model state result
+ * for actions
+ *
+ * @public
+ * @method modelState
+ */
+function normalizeRecords(recordType, payload) {
+	let {
+		data,
+		next, prev,
+		returned_rows, total_rows,
+		public_key
+	} = payload;
+
+	return new RecordArray(
+		deserialize(recordType, data),
+		{ next, prev, rows: returned_rows, totalRows: total_rows, token: public_key }
+	);
+}
+
+function deserialize(recordType, data) {
+	return data.map(d => {
+		let record = {
+			type: recordType,
+			id: d.id,
+			attrs: {}
+		};
+
+		Object.keys(d).forEach(k => {
+			if (k !== 'id') {
+				record.attrs[camelize(k)] = d[k];
+			}
+		});
+		return record;
+	});
 }
