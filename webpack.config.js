@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 module.exports = {
 	target: "web",
 
-	entry: ['babel-polyfill', './src/loader'],
+	entry: ['babel-polyfill', './app/loader'],
 
 	output: {
 		filename: "application.js",
@@ -23,8 +23,8 @@ module.exports = {
 		// Add '.ts' and '.tsx' as resolvable extensions.
 		extensions: [".jsx", ".js", ".json", ".css", '.scss'],
 		alias: {
-			"@app": path.resolve(__dirname, "src"),
-			"@busyweb": path.resolve(__dirname, "lib"),
+			"@app": path.resolve(__dirname, "app"),
+			"@busyweb": path.resolve(__dirname, "busyweb"),
 			"@config": path.resolve(__dirname, "config")
 		}
 	},
@@ -32,7 +32,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: pkg.name,
-			template: './src/index.html'
+			template: './app/index.html'
 		}),
 
 		new CleanWebpackPlugin(['dist']),
@@ -51,7 +51,7 @@ module.exports = {
 				test: /\.scss$/,
 				use: [
 					{ loader: "style-loader", options: { hmr: false }},
-					{ loader: "css-loader", options: { alias: { "@app": path.resolve(__dirname, "src") }}},
+					{ loader: "css-loader", options: { alias: { "@app": path.resolve(__dirname, "app") }}},
 					{ loader: "sass-loader" }
 				]
 			},
