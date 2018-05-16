@@ -2,8 +2,8 @@
  * @module Containers.TimeEntry
  *
  */
+import Record from '@busyweb/data/record';
 import { FETCH_ACTIVE, CREATE, DELETE, fetchRequest } from '@app/utils/actions';
-import Record from '@app/utils/record';
 
 export const RECORD_TYPE = 'time-entry';
 

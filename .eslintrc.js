@@ -25,7 +25,7 @@ module.exports = {
 		//"no-unused-vars": 0,
 		//"no-underscore-dangle": 0
 	},
-	globals: { Promise: true, Map: true, module: true, Symbol: true },
+	globals: { Promise: true, Map: true, module: true, Symbol: true, __webpack_require__: true, require: true },
 	overrides: [
     {
       files: [

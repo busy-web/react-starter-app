@@ -3,7 +3,7 @@
  *
  */
 import CryptoJS from 'crypto-js';
-import { sendreq } from '@app/utils/api';
+import { sendreq } from '@busyweb/data/api';
 import { getAuth, setAuth, deleteAuth } from '@app/utils/auth';
 import config from '@config/environment';
 

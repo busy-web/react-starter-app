@@ -2,9 +2,10 @@
  * @module Utils
  *
  */
-//import { underscore } from './string';
+import { inject } from '@busyweb/service';
+//import state from '@app/services/state';
+//import { underscore } from '@busyweb/string';
 //import Time from './time';
-import state from './state';
 //import RecordArray from './record-array';
 
 /**
@@ -41,7 +42,9 @@ function requestFailed(error) {
 export function fetchRequest(dispatch, recordType, params, success) {
 	dispatch(requestPending());
 
-	return state.adapter.find(recordType, params)
+	const store = inject('store');
+
+	return store.find(recordType, params)
 		.then(res => dispatch(success(res)))
 		.catch(err => dispatch(requestFailed(err)));
 }

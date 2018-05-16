@@ -2,8 +2,8 @@
  * @module Utils
  *
  */
-import { assert, funcNumArgs } from './debug';
-import { arrayT, funcT, stringT } from './types';
+import { assert, funcNumArgs } from '@busyweb/debug';
+import { arrayT, funcT, stringT } from '@busyweb/types';
 
 /**
  * @class ProxyArray

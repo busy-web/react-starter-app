@@ -2,9 +2,11 @@
 const merge = require('webpack-merge');
 const common = require('../webpack.config.js');
 
-module.exports = merge(common, {
-	mode: 'development',
+module.exports = function(env, argv) {
+	return merge(common(env, argv), {
+		mode: 'development',
 
-	// Enable sourcemaps for debugging webpack's output.
-	devtool: "source-map",
-});
+		// Enable sourcemaps for debugging webpack's output.
+		devtool: "source-map",
+	});
+};

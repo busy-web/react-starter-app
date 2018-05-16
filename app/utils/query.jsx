@@ -2,8 +2,8 @@
  * @module Utils
  *
  */
-import { cast, arrayT, objectT, stringT } from './types';
-import { assert } from './debug';
+import { cast, arrayT, objectT, stringT } from '@busyweb/types';
+import { assert } from '@busyweb/debug';
 
 export default {
 

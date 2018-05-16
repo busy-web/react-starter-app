@@ -4,17 +4,43 @@
  *
  * Basic Date Storage and Retrieval
  */
-//import { definedT, objectT, stringT } from './../types';
-import BasicDB from './basic-db';
+import { getGlobal } from './../app-global';
+import Service, { inject } from './../service';
+import Adapter from './adapter';
+//import BasicDB from './basic-db';
 
-const DB = new BasicDB('bw-time-app');
+// const DB = new BasicDB('bw-time-app');
 
-export function findAll(type) {
-	return DB.getRecords(type);
-}
+// export function findAll(type) {
+//   return DB.getRecords(type);
+// }
 
-export function saveRecords(type, records) {
-	DB.setRecords(type, records);
+// export function saveRecords(type, records) {
+//   DB.setRecords(type, records);
+// }
+
+
+export default class Store extends Service {
+
+	constructor() {
+		super();
+
+		this.auth = inject('auth');
+		this.config = getGlobal('config');
+		if (this.config && this.config.api && this.config.api.url) {
+			this.adapter = new Adapter(this.config.api.url, this.auth);
+		} else {
+			throw new Error("config.api.url is not defined");
+		}
+	}
+
+	find(...args) {
+		return this.adapter.find.apply(this.adapter, args);
+	}
+
+	save(...args) {
+		return this.adapter.save.apply(this.adapter, args);
+	}
 }
 
 /**

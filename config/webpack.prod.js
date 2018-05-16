@@ -3,10 +3,12 @@ const merge = require('webpack-merge');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const common = require('../webpack.config.js');
 
-module.exports = merge(common, {
-	mode: 'production',
+module.exports = function(env, argv) {
+	return merge(common(env, argv), {
+		mode: 'production',
 
-	plugins: [
-		new MinifyPlugin()
-	]
-});
+		plugins: [
+			new MinifyPlugin()
+		]
+	});
+}

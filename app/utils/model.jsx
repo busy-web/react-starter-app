@@ -2,15 +2,15 @@
  * @module Utils
  *
  */
-import Immutable from 'immutable';
-import { Dispatcher } from 'flux';
-import { assert } from './debug';
-import { definedT, objectT } from './types';
-import { eachProperty } from './object';
-import { camelize, underscore } from './string';
+//import Immutable from 'immutable';
+//import { Dispatcher } from 'flux';
+import { assert } from '@busyweb/debug';
+import { definedT, objectT } from '@busyweb/types';
+import { eachProperty } from '@busyweb/object';
+import { camelize, underscore } from '@busyweb/string';
 
 export default class Model {
-	static Dispatcher = Dispatcher;
+	//static Dispatcher = Dispatcher;
 	static definition = null;
 	static actionTypes = null;
 	static actions = null;
@@ -45,8 +45,8 @@ function setupModel(model, properties={}) {
 		}
 	});
 
-	const InternalModel = Immutable.Record(classDef.definition);
-	model._internalModel = new InternalModel(props);
+	//const InternalModel = Immutable.Record(classDef.definition);
+	//model._internalModel = new InternalModel(props);
 
 	//model.actions = buildActions(model.actions, model.actionTypes);
 
@@ -55,15 +55,15 @@ function setupModel(model, properties={}) {
 
 function buildActions(actions, actionTypes) {
 	let actionList = {};
-	let dispatcher = new Dispatcher();
+	//let dispatcher = new Dispatcher();
 
 	eachProperty(actions, (val, key) => {
 		actionList[camelize(key)] = (...props) => {
 			let disp = { type: actionTypes[underscore(key).toUpperCase()] };
 			props.forEach((value, index) => disp[val[index]] = value);
 
-			console.log('dispatcher', disp);
-			dispatcher.dispatch(disp);
+			//console.log('dispatcher', disp);
+			//dispatcher.dispatch(disp);
 		};
 	});
 

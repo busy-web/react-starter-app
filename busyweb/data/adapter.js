@@ -13,6 +13,7 @@ const TYPES = {
 	COMMIT: 'commit',
 };
 
+
 /**
  * Global Store for adding and retrieving models
  *
@@ -20,14 +21,20 @@ const TYPES = {
 export default class Adapter {
 	recordRegistry = [];
 
-	constructor(stateManager) {
-		this.state = stateManager;
+	constructor(baseUrl, auth) {
+		this.baseUrl = baseUrl;
+		this.setAuth(auth);
+	}
+
+	setAuth(auth) {
+		this.isAuthenticated = auth && auth.isAuthenticated;
+		this.auth = auth;
 	}
 
 	getHeaders() {
 		let headers = {};
-		if (this.state.isAuthenticated) {
-			headers['Key-Authorization'] = this.state.auth.token;
+		if (this.isAuthenticated) {
+			headers['Key-Authorization'] = this.auth.token;
 		}
 		return headers;
 	}
@@ -37,7 +44,7 @@ export default class Adapter {
 	}
 
 	buildUrl(recordType) {
-		return `${this.state.config.api.url}/${dasherize(recordType)}`;
+		return `${this.baseUrl}/${dasherize(recordType)}`;
 	}
 
 	find(recordType, query={}) {

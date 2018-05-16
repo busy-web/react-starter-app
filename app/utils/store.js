@@ -2,8 +2,8 @@
  * @module Utils
  *
  */
-import { getreq, postreq, patchreq } from './api';
-import { merge } from './object';
+import { getreq, postreq, patchreq } from '@busyweb/data/api';
+import { merge } from '@busyweb/object';
 
 /***/
 const API_URL = 'https://api-beta.busybusy.io';

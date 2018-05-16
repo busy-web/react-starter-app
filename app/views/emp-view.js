@@ -2,8 +2,8 @@
  * @module View
  *
  */
-import AppHeader from '@app/components/app-header';
-import AppBody from '@app/components/app-body';
+//import AppHeader from '@app/components/app-header';
+//import AppBody from '@app/components/app-body';
 import Button from '@app/components/button';
 import '@app/styles/views/app-view.scss';
 
@@ -49,8 +49,6 @@ function generateMember(cb) {
 export default function AppView(props) {
 	return (
 		<div className="application-view">
-			<AppHeader />
-			<AppBody>
 				<div className="member-header">
 					<span className="page-title">Members (Results: {props.members && props.members.size ? props.members.size : 0})</span>
 					<span className="add-member"><Button type="blue" onClick={() => generateMember(props.onAddMember)}>Create Member</Button></span>
@@ -81,7 +79,6 @@ export default function AppView(props) {
 						}
 					})()}
 				</div>
-			</AppBody>
 		</div>
 	);
 }
