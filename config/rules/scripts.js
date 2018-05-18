@@ -11,7 +11,11 @@ const path = require('path');
 module.exports = ({ dir }) => {
 	return {
 		test: /\.jsx?$/,
-		use: ['babel-loader'],
+		use: [
+			{
+				loader: 'babel-loader'
+			}
+		],
 		include: [
 			path.resolve(dir, 'app'),
 			path.resolve(dir, 'busyweb')

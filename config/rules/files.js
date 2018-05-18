@@ -15,8 +15,9 @@ module.exports = () => {
 				loader: 'url-loader',
 				options: {
 					limit: 8192,
-					name: '[name]-[hash].[ext]',
-					publicPath: 'assets/',
+					regExp: /public\/(.*)$/,
+					name: '[1][name].[hash].[ext]',
+					publicPath: '/assets/',
 					outputPath: 'assets/',
 				}
 			}
