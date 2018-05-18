@@ -5,10 +5,12 @@
 import CryptoJS from 'crypto-js';
 import { sendreq } from '@busyweb/data/api';
 import { getAuth, setAuth, deleteAuth } from '@app/utils/auth';
-import config from '@config/environment';
 
+// get api config from app config
+const { api } = __APP__;
 
-const API_URL = config.api.url + '/member';
+// set api url
+const API_URL = api.url + '/member';
 
 export const IS_AUTHENTICATED = "IS_AUTHENTICATED";
 export function isAuthenticated() {

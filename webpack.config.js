@@ -4,47 +4,73 @@ require('dotenv').config();
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+//const MinifyPlugin = require('babel-minify-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-const pkg = require('./package.json');
+const envConfig = require('./config/environment');
 
-module.exports = function(environment /*, argv*/) {
-	environment = environment || 'development';
+module.exports = function(buildType) {
+	let { env, mode } = getMode(buildType);
+	const { config, application, features } = envConfig(env);
 
-	const ENV = {
+	// boolean flag for production optimizations
+	const isProd = env === 'production';
+
+	function getRule(name) {
+		const fp = './config/rules/' + name;
+		return require(fp).call(null, { env, dir: __dirname });
+	}
+
+	return {
 		target: "web",
+		mode: mode,
+		context: __dirname,
 
-		entry: {
-			bundle: './app/main',
-		},
-
+		entry: { bundle: './app/main' },
 		output: {
-			chunkFilename: "[name].js",
+			filename: (!isProd ? "app.bundle.js" : "app-[hash].min.js"),
+			chunkFilename: (!isProd ? "[name].js" : "[name]-[hash].min.js"),
 			path: path.resolve(__dirname, "dist"),
-			publicPath: '/',
+			publicPath: '',
 			library: "application",
 		},
 
 		optimization: {
 			splitChunks: {
-				automaticNameDelimiter: '-',
+				automaticNameDelimiter: '.',
 				cacheGroups: {
 					vendors: {
 						test: /[\\/]node_modules[\\/]/,
 						priority: -10,
 						chunks: "all"
 					},
-					config: {
-						test: /[\\/]config[\\/]/,
+					busyweb: {
+						test: /[\\/]busyweb[\\/]/,
 						priority: -20,
 						chunks: "all"
 					},
-					busyweb: {
-						test: /[\\/]busyweb[\\/]/,
+					/* style: {
+						test: /[\\/]styles[\\/]/,
 						priority: -30,
-						chunks: "all"
-					}
+						chunks: "all",
+						enforce: true
+					} */
 				}
-			}
+			},
+
+			minimizer: [
+				//new MinifyPlugin({}),
+				new UglifyJsPlugin({
+					cache: true,
+					parallel: true,
+					sourceMap: true // set to true if you want JS source maps
+				}),
+				new OptimizeCSSAssetsPlugin({})
+			]
 		},
 
 		resolve: {
@@ -52,86 +78,80 @@ module.exports = function(environment /*, argv*/) {
 
 			// Add '.ts' and '.tsx' as resolvable extensions.
 			extensions: [".jsx", ".js", ".json", ".css", '.scss'],
+
 			alias: {
 				"@app": path.resolve(__dirname, "app"),
 				"@busyweb": path.resolve(__dirname, "busyweb"),
-				"@config": path.resolve(__dirname, "config")
+				//"@public": path.resolve(__dirname, "public")
 			}
+		},
+
+		module: {
+			rules: [
+				getRule('scripts'),
+				getRule('styles'),
+				getRule('files')
+			]
 		},
 
 		plugins: [
 			new HtmlWebpackPlugin({
-				title: pkg.name,
-				template: './app/index.html'
+				favicon: config.favicon,
+				title: config.name,
+				template: './app/index.html',
 			}),
 
-			new CleanWebpackPlugin(['dist']),
-			new webpack.NamedModulesPlugin(),
-			new webpack.HotModuleReplacementPlugin(),
-			//new webpack.DefinePlugin({ env: JSON.stringify(process.env) }),
+			new MiniCssExtractPlugin({
+				filename: !isProd ? 'app.bundle.css' : 'app.bundle.css',
+				//chunkFilename: !isProd ? '[name].css' : '[name].[hash].css',
+			}),
 
-			new webpack.ProvidePlugin({
-				React: "react",
-				cryptojs: "crypto-js"
-			})
+			new webpack.DefinePlugin({
+				__APP__: JSON.stringify(application),
+				__FEATURES__: JSON.stringify(features)
+			}),
+
+			new webpack.ProvidePlugin({ React: "react", cryptojs: "crypto-js" }),
+
+			new CleanWebpackPlugin(['dist']),
+			new webpack.HotModuleReplacementPlugin(),
+
+			// new CopyWebpackPlugin([
+			//   { from: 'public/', to: path.resolve(__dirname, 'dist/assets') }
+			// ])
 		],
 
-		module: {
-			rules: [
-				// {
-				//   test: /\.jsx?$/,
-				//   use: ['babel-loader'],
-				//   include: [ path.resolve(__dirname, 'app'), path.resolve(__dirname, 'busyweb'), path.resolve(__dirname, 'config') ]
-				// },
-				{
-					//test: /loader\.js$/,
-					test: /\.jsx?$/,
-					use: [
-						{ loader: './config/deps-loader', options: { include: /loader/, alias: { '@app': path.resolve(__dirname, 'app') }, deps: ['services'] }},
-						{ loader: 'babel-loader' }
-					],
-					include: [ path.resolve(__dirname, 'app'), path.resolve(__dirname, 'busyweb'), path.resolve(__dirname, 'config') ]
-				},
-				{
-					test: /\.scss$/,
-					use: [
-						{ loader: "style-loader", options: { hmr: false }},
-						{ loader: "css-loader", options: { alias: { "@app": path.resolve(__dirname, "app") }}},
-						{ loader: "sass-loader" }
-					],
-					include: [ path.resolve(__dirname, 'app/styles') ]
-				},
-				{
-					test: /\.(png|svg|jpg|gif)$/,
-					use: ['file-loader']
-				},
-				{
-					test: /\.(woff|woff2|eot|ttf|otf)$/,
-					use: ['file-loader']
-				}
-			]
-		},
+		// set devtool to sourcemaps
+		devtool: (isProd ? 'none' : "source-map"),
 
+		// setup dev server
 		devServer: {
-			//hot: true,
-			//quiet: false,
-			//noInfo: false,
-			//stats: "errors-only",
-			clientLogLevel: 'error',
+			hot: true,
 			contentBase: './dist',
+			compress: true,
 
-			host: process.env.HOST || 'localhost',
-			port: process.env.PORT || '4200'
+			//quiet: config.quiet,
+			//noInfo: config.noInfo,
+			//stats: config.stats,
+			clientLogLevel: config.client_log_level,
+
+			host:	config.host,
+			port: config.port,
 		}
 	};
-
-	if (environment === 'development') {
-		// additional config
-	}
-
-	if (environment === 'production') {
-		// additional config
-	}
-
-	return ENV;
 };
+
+function getMode(env) {
+	let mode = 'none';
+	if (env === 'dev' || env === 'development') {
+		env = 'development';
+		mode = env;
+	} else if (env === 'prod' || env === 'production') {
+		env = 'production';
+		mode = env;
+	}
+	return { mode, env };
+}
+
+// export the base dir
+module.exports.__dirname = __dirname;

@@ -3,8 +3,8 @@
  *
  */
 import { definedT } from '@busyweb/types';
-import features from '@config/features';
-import config from '@config/environment';
+//import features from '@config/features';
+//import config from '@config/environment';
 import Adapter from '@busyweb/data/adapter';
 import { assert } from '@busyweb/debug';
 import { getAuth } from '@app/services/auth';
@@ -18,8 +18,8 @@ import { getAuth } from '@app/services/auth';
 class Application {
 
 	constructor() {
-		this.features = features;
-		this.config = config;
+		this.features = __FEATURES__;
+		this.config = __APP__;
 
 		// get auth info
 		this.auth = getAuth();

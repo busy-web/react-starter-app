@@ -21,7 +21,7 @@ function pluralize(name) {
 }
 
 export default function loader() {
-	const baseDir = module.id.replace(/\/loader\.js/, '');
+	const baseDir = './app';
 
 	function injectFactory(name) {
 		let [ dir, file ] = name.split(':');

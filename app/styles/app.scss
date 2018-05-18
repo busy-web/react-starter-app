@@ -1,0 +1,12 @@
+
+@import 'core/index';
+
+#application {
+	width: 100vw;
+	height: 100vh;
+
+	& > .container {
+		width: 100%;
+		height: 100%;
+	}
+}

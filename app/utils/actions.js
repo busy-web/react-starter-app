@@ -2,11 +2,7 @@
  * @module Utils
  *
  */
-import { inject } from '@busyweb/service';
-//import state from '@app/services/state';
-//import { underscore } from '@busyweb/string';
-//import Time from './time';
-//import RecordArray from './record-array';
+import injectService from '@busyweb/inject-service';
 
 /**
  * genneric action types
@@ -40,47 +36,14 @@ function requestFailed(error) {
 }
 
 export function fetchRequest(dispatch, recordType, params, success) {
+	// dispatch request pending
 	dispatch(requestPending());
 
-	const store = inject('store');
+	// get store
+	const store = injectService('store');
 
+	// find records
 	return store.find(recordType, params)
-		.then(res => dispatch(success(res)))
-		.catch(err => dispatch(requestFailed(err)));
+		.then(res => dispatch(success(res))) // dispatch success
+		.catch(err => dispatch(requestFailed(err))); // dispatch error
 }
-
-/**
-export function findRecord(recordType, params, dispatch, filter) {
-	normalizeState(dispatch, { type: 'find-pending', recordType, pending: true, filter });
-
-	return state.adapter.find(recordType, params)
-		.then(records => normalizeState(dispatch, { type: 'find-success', recordType, records, filter }))
-		.catch(err => normalizeState(dispatch, { type: 'find-error', recordType, error: err, filter }));
-}
-
-
-function normalize(str) {
-	return underscore(str).toUpperCase();
-}
-
-/**
- * Helper actions that are generric to all record actions
-<]
-export function generateType(type, recordType) {
-	return `${normalize(type)}_${normalize(recordType)}`;
-}
-
-export function normalizeState(dispatch, { type=null, recordType, records=null, pending=false, error=null, loadRecords=false, filter="FILTER_ALL", syncstamp=Time.unix }) {
-	if (!records) {
-		records = new RecordArray(recordType, []);
-	}
-
-	let state = { records, error, pending, loadRecords, filter, syncstamp };
-	if (type && dispatch) {
-		state.type = generateType(type, recordType);
-		return dispatch(state);
-	} else {
-		return state;
-	}
-}
- */

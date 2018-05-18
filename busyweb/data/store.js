@@ -4,8 +4,9 @@
  *
  * Basic Date Storage and Retrieval
  */
-import { getGlobal } from './../app-global';
-import Service, { inject } from './../service';
+//import { getGlobal } from './../app-global';
+import Service from './../service';
+import injectService from './../inject-service';
 import Adapter from './adapter';
 //import BasicDB from './basic-db';
 
@@ -25,8 +26,9 @@ export default class Store extends Service {
 	constructor() {
 		super();
 
-		this.auth = inject('auth');
-		this.config = getGlobal('config');
+		injectService('auth', this);
+
+		this.config = __APP__;
 		if (this.config && this.config.api && this.config.api.url) {
 			this.adapter = new Adapter(this.config.api.url, this.auth);
 		} else {
