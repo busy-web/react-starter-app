@@ -21,6 +21,7 @@ module.exports = function(env) {
 		// dev server settings
 		host: ifndef(devConfig.server.host, 'localhost'),
 		port: ifndef(devConfig.server.port, '4200'),
+		quiet: ifndef(devConfig.server.quiet, false),
 		stats: ifndef(devConfig.server.stats, 'errors-only'),
 		client_log_level: ifndef(devConfig.server.client_log_level, 'error'),
 	};

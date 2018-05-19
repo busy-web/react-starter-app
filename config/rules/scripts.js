@@ -18,7 +18,7 @@ module.exports = ({ dir }) => {
 		],
 		include: [
 			path.resolve(dir, 'app'),
-			path.resolve(dir, 'busyweb')
+			path.resolve(dir, 'lib')
 		],
 	};
 };
