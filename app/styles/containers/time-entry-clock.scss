@@ -1,0 +1,20 @@
+
+
+.c-time-entry-clock-container {
+	width: 100%;
+	height: auto;
+
+	& > .clock {
+		width: 100%;
+		height: auto;
+	}
+
+	& > .clock-buttons {
+		width: 100%;
+		height: auto;
+
+		& > .form-view {
+			text-align: center;
+		}
+	}
+}

@@ -8,7 +8,7 @@ import { combineReducers } from 'redux';
 import auth from '@app/models/auth';
 import member from '@app/models/member';
 //import timeEntry from '@app/models/time-entry';
-import timeEntry from '@app/containers/time-entry/reducer';
+import timeEntry from '@app/models/time-entry/reducer';
 /** end model imports **/
 
 /**
@@ -17,6 +17,8 @@ import timeEntry from '@app/containers/time-entry/reducer';
  */
 export default combineReducers({
 	auth,
-	member,
-	timeEntry
+	models: combineReducers({
+		member,
+		timeEntry
+	})
 });

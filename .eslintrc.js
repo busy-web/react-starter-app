@@ -12,7 +12,7 @@ module.exports = {
     browser: true
 	},
 	settings: {
-		ecmascript: "es2017",
+		ecmascript: "es2015",
 		jsx: true
 	},
 	rules: {
@@ -35,7 +35,7 @@ module.exports = {
       files: [
         'webpack.config.js',
 				'config/**/*.js',
-				'lib/**/*.js',
+				'tools/**/*.js',
 				'./.storybook/**/*.js',
       ],
       parserOptions: {

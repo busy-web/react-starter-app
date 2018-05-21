@@ -26,6 +26,7 @@ export function fetchActiveTimeEntries(dispatch, start, end) {
 	});
 }
 
+export const FILTER_OPEN = 'FILTER_OPEN';
 export const FETCH_OPEN = 'FETCH_OPEN';
 export function fetchOpenTimeEntry(dispatch, member_id) {
 	const query = { member_id, end_time: null };
@@ -37,6 +38,7 @@ export function fetchOpenTimeEntry(dispatch, member_id) {
 		};
 	});
 }
+
 
 export function createTimeEntry(attrs) {
 	const record = new Record({ type: RECORD_TYPE, attrs });

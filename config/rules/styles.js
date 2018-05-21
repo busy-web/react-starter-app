@@ -9,14 +9,14 @@ module.exports = ({ dir, env }) => {
 
 	global.console.log(env, dir);
 	let dynamicLoader = MiniCssExtractPlugin.loader;
-	// if (env === 'development') {
-	//   dynamicLoader = {
-	//     loader: "style-loader",
-	//     options: {
-	//       hmr: false
-	//     }
-	//   }
-	// }
+	if (env === 'development') {
+		dynamicLoader = {
+			loader: "style-loader",
+			options: {
+				hmr: false
+			}
+		}
+	}
 
 	return {
 		test: /\.scss$/,

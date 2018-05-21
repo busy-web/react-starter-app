@@ -3,15 +3,20 @@
  *
  */
 import { connect } from 'react-redux';
+import { definedT, objectT } from '@busyweb/types';
+import Time from '@busyweb/time';
 import Button from '@app/components/button';
 import Clock from '@app/components/clock';
-//import { getAuth } from '@app/utils/auth';
-//import { findOpen } from '@app/actions/time-entry';
-import { fetchOpenTimeEntry, createTimeEntry } from './time-entry/actions';
+import {
+	fetchOpenTimeEntry,
+	/* createTimeEntry */
+} from '@app/models/time-entry/actions';
+import '@app/styles/containers/time-entry-clock';
 
 const mapStateToProps = (state) => {
-	let { timeEntry } = state;
-	return { state: timeEntry };
+	let { timeEntry } = state.models;
+	let { id } = state.auth;
+	return { state: timeEntry, authId: id };
 };
 
 /**
@@ -23,35 +28,77 @@ const mapDispatchToProps = (dispatch) => {
 };
 */
 
-const TimeEntryClock = ({ memberId, state, dispatch }) => {
+const TimeEntryClock = ({ memberId, authId, state, dispatch }) => {
+	if (!memberId) {
+		memberId = authId;
+	}
+
 	if (state.type === 'EMPTY') {
 		fetchOpenTimeEntry(dispatch, memberId);
-	}
-	/* if (state.error) {
-		return <div className="error">{state.error.message}</div>
-	} else if (state.pending) {
-		return <div className="c-time-entry-clock-container">Loading...</div>;
-	} else if (state.loadRecords) {
-		//findOpen(memberId, dispatch);
-		return <div className="c-time-entry-clock-container">Loading...</div>;
-	} else { */
-	//let records = state.records;
-		let entry = state.openRecord;
-		console.log('entry', entry);
-		return (
-			<div className="c-time-entry-clock-container">
-				<div className="clock">
-					<Clock openEntry={entry} />
-				</div>
-				<div className="clock-buttons">
-					<div className="form-view">
-						<Button type="blue">Clock In</Button>
+		return <div className="loading"></div>
+	} else if (state.type === 'REQUEST_PENDING') {
+		return <div className="loading"></div>
+	} else {
+		let entry = state.records[0];
+		let clockString;
+		if (objectT(entry)) {
+			clockString = calcTime(entry);
+			setTimeout(() => {
+				clockString = calcTime(entry);
+			}, 1000);
+		} else {
+			clockString = "00:00:00 time";
+		}
+		/* if (state.error) {
+			return <div className="error">{state.error.message}</div>
+		} else if (state.pending) {
+			return <div className="c-time-entry-clock-container">Loading...</div>;
+		} else if (state.loadRecords) {
+			//findOpen(memberId, dispatch);
+			return <div className="c-time-entry-clock-container">Loading...</div>;
+		} else { */
+		//let records = state.records;
+			return (
+				<div className="c-time-entry-clock-container">
+					<div className="clock">
+						<Clock clockString={clockString} />
+					</div>
+					<div className="clock-buttons">
+						<div className="form-view">
+							{(() => {
+								if (!definedT(entry)) {
+									return (<Button type="blue">Clock In</Button>);
+								} else {
+									return (<Button type="red">Clock Out</Button>);
+								}
+							})()}
+						</div>
 					</div>
 				</div>
-			</div>
-		);
-	//}
+			);
+		//}
+	}
 };
+
+function calcTime(openEntry) {
+	let start = openEntry.startTime;
+	let now = Time.unix();
+	let diff = now - start;
+
+	let hours = parseInt(diff/3600, 10) * 3600;
+	let minutes = parseInt((diff - hours)/60, 10) * 60;
+	let seconds = parseInt((diff - hours - minutes), 10);
+	hours = hours/3600;
+	minutes = minutes/60;
+
+	hours = hours < 10 ? `0${hours}` : hours;
+	minutes = minutes < 10 ? `0${minutes}` : minutes;
+	seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+	let str = `${hours}:${minutes}:${seconds}`;
+	console.log('calcTime', str);
+	return str;
+}
 
 export default connect(mapStateToProps)(TimeEntryClock);
 
