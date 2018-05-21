@@ -18,11 +18,13 @@ export default function(state = initialState, action) {
 				type: action.type,
 				records: action.recordArray
 			});
+
 		case FILTER_OPEN:
 			return Object.assign({}, state, {
 				type: FILTER_OPEN,
 				records: state.records.filter(i => i.endTime === null)
 			});
+
 		case FETCH_OPEN:
 			return Object.assign({}, state, {
 				type: action.type,

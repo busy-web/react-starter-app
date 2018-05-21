@@ -2,16 +2,30 @@
  * @module Models
  *
  */
-import { normalizeState } from '@app/utils/actions';
+import createReducer from '@app/utils/create-reducer';
+import { CREATE, DELETE, FETCH_ACTIVE } from '@app/utils/actions';
+import { FILTER_OPEN, FETCH_OPEN } from './time-entry/actions';
 
-const initialState = normalizeState(null, { recordType: 'time-entry', loadRecords: true });
+export default createReducer({
+	[FETCH_ACTIVE]: (state, { recordArray }) => {
+		return { type: FETCH_ACTIVE, records: recordArray };
+	},
 
-function reducer(state = initialState, action) {
-	if (action.type) {
-		return Object.assign({}, state, action);
-	} else {
-		return state;
+	[FETCH_OPEN]: (state, { record }) => {
+		return { type: FETCH_OPEN, records: [ record ] };
+	},
+
+	[FILTER_OPEN]: (state) => {
+		return { type: FILTER_OPEN, records: state.filter(i => i.endTime === null) };
+	},
+
+	[CREATE]: (state, { record }) => {
+		return { type: CREATE, records: record };
+	},
+
+	[DELETE]: (state, { id }) => {
+		let records = state.records.slice(0);
+		records.deleted(id);
+		return { type: DELETE, records };
 	}
-}
-
-export default reducer;
+});

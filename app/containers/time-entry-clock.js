@@ -33,7 +33,7 @@ const TimeEntryClock = ({ memberId, authId, state, dispatch }) => {
 		memberId = authId;
 	}
 
-	if (state.type === 'EMPTY') {
+	if (state.type === null) {
 		fetchOpenTimeEntry(dispatch, memberId);
 		return <div className="loading"></div>
 	} else if (state.type === 'REQUEST_PENDING') {
