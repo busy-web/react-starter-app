@@ -2,7 +2,7 @@
  * @module Actions
  *
  */
-import { findRecord } from '@app/utils/actions';
+import { findRecord } from '@busyweb/state/actions';
 
 /***/
 export const FILTER_ALL = "FILTER_ALL";

@@ -2,8 +2,8 @@
  * @module Models
  *
  */
-import createReducer from '@app/utils/create-reducer';
-import { CREATE, DELETE, FETCH_ACTIVE } from '@app/utils/actions';
+import createReducer from '@busyweb/state/create-reducer';
+import { CREATE, DELETE, FETCH_ACTIVE } from '@busyweb/state/actions';
 import { FILTER_OPEN, FETCH_OPEN } from './time-entry/actions';
 
 export default createReducer({

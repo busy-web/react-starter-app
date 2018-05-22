@@ -2,7 +2,7 @@
  * @module Containers.TimeEntry
  *
  */
-import { EMPTY, CREATE, DELETE, FETCH_ACTIVE, REQUEST_PENDING } from '@app/utils/actions';
+import { EMPTY, CREATE, DELETE, FETCH_ACTIVE, REQUEST_PENDING } from '@busyweb/state/actions';
 import { FILTER_OPEN, FETCH_OPEN } from './actions';
 
 const initialState = {

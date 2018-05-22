@@ -3,7 +3,7 @@
  *
  */
 import Record from '@busyweb/data/record';
-import { FETCH_ACTIVE, CREATE, DELETE, fetchRequest } from '@app/utils/actions';
+import { FETCH_ACTIVE, CREATE, DELETE, fetchRequest } from '@busyweb/state/actions';
 
 export const RECORD_TYPE = 'time-entry';
 
