@@ -2,21 +2,16 @@
  * @module Models
  *
  */
-import { FILTERS } from '@app/actions/member';
+import createReducer from '@busyweb/state/create-reducer';
+import { FILTER_ALL, FILTER_AUTH } from '@app/actions/member';
 
-const initialState = {
-	filter: FILTERS.all,
-	models: []
-};
+// const initialState = {
+//   filter: null,
+//   records: []
+// };
 
-function reducer(state = initialState, action) {
-	switch (action.type) {
-		case FILTERS.auth:
-			return Object.assign({}, state, { filter: FILTERS.auth });
-
-		default:
-			return state;
+export default createReducer({
+	[FILTER_ALL]: (state, { id, members }) => {
+		return { ...state, records: members, authMember: members.filter(i => i.id === id) };
 	}
-}
-
-export default reducer;
+});

@@ -14,9 +14,9 @@ import {
 import '@app/styles/containers/time-entry-clock';
 
 const mapStateToProps = (state) => {
-	let { timeEntry } = state.models;
-	let { id } = state.auth;
-	return { state: timeEntry, authId: id };
+	let { timeEntry } = state.api;
+	let { id } = state.app.auth;
+	return { state: timeEntry || {}, authId: id };
 };
 
 /**
@@ -34,12 +34,12 @@ const TimeEntryClock = ({ memberId, authId, state, dispatch }) => {
 	}
 
 	if (state.type === null) {
-		fetchOpenTimeEntry(dispatch, memberId);
+		dispatch(fetchOpenTimeEntry(memberId));
 		return <div className="loading"></div>
 	} else if (state.type === 'REQUEST_PENDING') {
 		return <div className="loading"></div>
 	} else {
-		let entry = state.records[0];
+		let entry = state.records && state.records.model && state.records.model.find(i => i.endTime === null);
 		let clockString;
 		if (objectT(entry)) {
 			clockString = calcTime(entry);

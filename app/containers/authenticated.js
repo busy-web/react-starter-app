@@ -7,12 +7,12 @@ import Button from '@app/components/button';
 import { fetchAuth } from '@app/actions/auth';
 
 const mapStateToProps = (state) => {
-	let { auth } = state;
-	return auth;
+	let { auth } = state.app;
+	return { auth };
 }
 
-const AuthView = ({ children, isAuthenticated, dispatch }) => {
-	if (isAuthenticated) {
+const AuthView = ({ children, auth, dispatch }) => {
+	if (auth.isAuthenticated) {
 		return <div className="auth">{children}</div>;
 	} else {
 		let uname = '';

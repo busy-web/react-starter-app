@@ -9,7 +9,6 @@ import {
 	getAuthHash
 } from '@app/actions/auth';
 
-
 const initialState = getAuthHash();
 
 function reducer(state = initialState, action) {

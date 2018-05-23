@@ -2,21 +2,15 @@
  * @module ModelActions
  *
  */
-//const API_URL = 'https://api-beta.busybusy.io/member';
 
+export const FILTER_ALL = 'FILTER_ALL';
+//export const FILTER_AUTH = 'FILTER_AUTH';
 
-const FILTERS = {
-	all: 'filter_all',
-	auth: 'filter_auth',
-	active: 'filter_active',
-	archived: 'filter_archived',
-};
-
-const ACTIONS = {
-	fetch: 'fetch_records_member',
-	authorize: 'authorize_member',
-};
-
-export { FILTERS, ACTIONS };
-
+export function filterAll(id, members) {
+	return {
+		type: FILTER_ALL,
+		id,
+		members
+	};
+}
 

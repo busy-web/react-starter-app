@@ -31,12 +31,13 @@ export const FETCH_OPEN = 'FETCH_OPEN';
 export function fetchOpenTimeEntry(dispatch, member_id) {
 	const query = { member_id, end_time: null };
 
-	return fetchRequest(dispatch, RECORD_TYPE, query, (record) => {
-		return {
-			type: FETCH_OPEN,
-			record: record.firstRecord,
-		};
-	});
+	return fetchRequest(RECORD_TYPE, query);
+	// , (record) => {
+	//   return {
+	//     type: FETCH_OPEN,
+	//     record: record.firstRecord,
+	//   };
+	// });
 }
 
 
